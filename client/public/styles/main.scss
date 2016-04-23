@@ -1,0 +1,268 @@
+@import "./import/_variables.scss";
+@import "./import/_mixins.scss";
+
+//$icon-font-path: "../bower_components/bootstrap-sass/assets/fonts/bootstrap/";
+$icon-font-path: "fonts/";
+
+// bower:scss
+@import "bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+// endbower
+
+//  Overide Bootstrap
+.page-header {
+  margin-top: 0;
+}
+
+body {
+  padding-top: 70px;
+}
+
+button {
+  outline: none !important;
+}
+
+.primaryColor {
+  color: $brand-primary;
+}
+
+//  Form
+.formButton {
+  margin-top: 30px;
+}
+
+//  Navbar
+.display-navbar {
+  position: absolute;;
+  right: 0;
+  margin-right: 15px;
+  padding: 9px 10px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 0px;
+}
+
+//  Table | ng-repeat
+//  Permet de donner un effet
+.repeated-animation.ng-enter-stagger {
+  transition-delay: 50ms;
+  transition-duration: 0s;
+}
+
+.repeated-animation.ng-enter {
+  transition: .4s ease-in opacity;
+  opacity: 0;
+}
+
+.repeated-animation.ng-enter.ng-enter-active,
+.repeated-animation.ng-move.ng-move-active {
+  opacity: 1;
+}
+
+#userForm {
+  label {
+    color: $brand-secondary;
+    transition: height .3s;
+    height: 0;
+    overflow: hidden;
+  }
+
+  label.showLabel {
+    opacity: 1;
+    height: 20px;
+  }
+
+  input {
+    border: 0;
+    outline: none;
+    width: 100%;
+    box-shadow: none !important;
+    border-bottom: 3px solid white;
+    padding: 0;
+  }
+
+  .valid {
+    border-bottom-color: $brand-success;
+  }
+
+  .error {
+    border-bottom-color: $brand-danger;
+  }
+}
+
+//  Modal Aside
+.asideModal {
+  a {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+// Navbar
+@media screen and (max-width: 800px) {
+  .navbar-button {
+    margin: 0 20px;
+  }
+}
+
+//  CustomTooltip
+.tooltip.tooltipClass .tooltip-inner {
+  color: white;
+  background-color: $brand-primary;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+
+.tooltip.tooltipClass .tooltip-arrow {
+  display: none;
+}
+
+//  FormGame
+.element {
+    height: 5px;
+    background-color: $brand-primary;
+    margin-left: -15px;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    position: relative;
+    &:after {
+        content: '';
+        width: 5px;
+        height: 50px;
+        background-color: $brand-primary;
+        position: absolute;
+        left: 50%;
+        top: 5px;
+    }
+}
+
+.formGame {
+  margin-top: 20px;
+}
+
+.playerName {
+  font-weight: 700;
+  color: $brand-primary;
+}
+
+.falseAnswer {
+  text-decoration: line-through;
+}
+
+//  Button
+.btn-translate {
+  @include button-variant(white, $brand-primary, $brand-primary);
+}
+
+.btn-lg-full {
+  width: 50%;
+  left: 25%;
+}
+.balance {
+    @include animation(balance 3s 3 !important);
+    animation-fill-mode:forwards;
+    transform: rotate(0deg);
+}
+
+// .rightToCenter {
+//   position: relative;
+//   @include animation(rightToCenter 2s);
+// }
+
+//  Admin
+.userInfo {
+  padding: 0;
+  padding: 10px;
+  p {
+    border-bottom: 1px solid $brand-secondary;
+  }
+}
+
+input {
+  border: 0 !important;
+  outline: none;
+  width: 10% !important;
+  box-shadow: none !important;
+  border-bottom: 3px solid rgba($brand-secondary, 0.5) !important;
+  border-left: 3px solid rgba($brand-secondary, 0.5) !important;
+  padding: 0 !important;
+  padding-left: 3px !important;
+  transition: all .3s !important;
+}
+
+input:hover {
+    border-bottom: 3px solid rgba($brand-secondary, 1) !important;
+    border-left: 3px solid rgba($brand-secondary, 1) !important;
+}
+
+input:focus {
+  width: 100% !important;
+  border-bottom: 3px solid rgba($brand-secondary, 1) !important;
+  border-left: 3px solid rgba($brand-secondary, 1) !important;
+}
+
+.valid {
+  border-bottom-color: $brand-success !important;
+  width: 100% !important;
+}
+
+.error {
+  border-bottom-color: $brand-danger !important;
+  width: 100% !important;
+}
+
+.fullSize {
+  width: 100% !important;
+}
+
+.hideLabel {
+  color: $brand-secondary;
+  transition: height .3s;
+  height: 0;
+  overflow: hidden;
+}
+
+.hideLabel.showLabel {
+  opacity: 1;
+  height: 20px;
+}
+
+.blurBg {
+    filter: blur(10px);
+}
+
+.opacity {
+    @include animation(opacity .7s);
+}
+
+
+@include keyframes(rightToCenter) {
+  0% {
+    left: 2000px;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+@include keyframes(balance) {
+  0% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(15deg);
+  }
+}
+
+@include keyframes(opacity) {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

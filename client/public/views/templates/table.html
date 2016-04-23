@@ -1,0 +1,18 @@
+<div>
+    <table ng-if="source.length > 0" class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th ng-repeat="lang in langFacade.langs | orderBy : 'code'">{{'WORD.WORD' | translate}} {{ lang.label
+                }}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="label in filteredSuccessResult">
+            <th>{{ getIndex($index) }}</th>
+            <td ng-repeat="(key, value) in label  | orderBy : '-key' track by key ">{{ value }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

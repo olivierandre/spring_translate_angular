@@ -1,0 +1,54 @@
+<div class="col-xs-12 col-sm-6 col-sm-offset-3">
+
+    <div class="radio">
+        <label>
+            <input type="radio" ng-model="isCategory" ng-value="true" ng-change="defineUrl()"> {{ 'IMPORT.CATEGORY' |
+            translate }}
+        </label>
+    </div>
+
+    <div class="radio">
+        <label>
+            <input type="radio" ng-model="isCategory" ng-value="false" ng-change="defineUrl()"> {{ 'IMPORT.WORD' |
+            translate}}
+        </label>
+    </div>
+
+    <upload-button disabled="isCategory === undefined" result="result" url="url" accept="accept" max-size="'1MB'"
+                   pattern="'.xls,.xlsx'"></upload-button>
+    <div>
+        <p ng-if="result.countSuccess > 0">Mots ajoutés : {{ result.countSuccess }}</p>
+        <!-- <table ng-if="result.success.length > 0" class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th ng-repeat="lang in langFacade.langs | orderBy : 'code'">{{'WORD.WORD' | translate}} {{ lang.label
+                    }}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="label in filteredSuccessResult">
+                <th>{{ getIndex($index) }}</th>
+                <td ng-repeat="(key, value) in label  | orderBy : '-key' track by key ">{{ value }}</td>
+            </tr>
+            </tbody>
+        </table> -->
+
+        <table ng-if="result.fail.length > 0" class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th ng-repeat="lang in langFacade.langs | orderBy : 'code'">{{'WORD.WORD' | translate}} {{ lang.label
+                    }}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="danger" ng-repeat="label in filteredFailResult">
+                <th>{{ getIndex($index) }}</th>
+                <td ng-repeat="(key, value) in label  | orderBy : '-key' track by key ">{{ value }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>

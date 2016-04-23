@@ -1,0 +1,135 @@
+<!doctype html>
+<html class="no-js" ng-app="translateApp">
+  <head>
+    <meta charset="utf-8">
+    <title ng-bind-html="(pageTitle | translate) + ' | TranslateMoi'"></title>
+    <meta content="Translate" name="description">
+    <meta content="width=device-width" name="viewport">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/angular-aside/dist/css/angular-aside.css" />
+    <link rel="stylesheet" href="bower_components/angular-dialog-service/dist/dialogs.min.css" />
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+    <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css" />
+    <link rel="stylesheet" href="bower_components/angular-toggle-switch/style/bootstrap3/angular-toggle-switch-bootstrap-3.css" />
+    <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link href="styles/main.css" rel="stylesheet">
+    <link href="styles/admin.css" rel="stylesheet">
+    <!-- endbuild -->
+  </head>
+  <body>
+    <!--[if lt IE 7]> <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p> <![endif]-->
+    <div class="container-fluid" ng-class="{'blurBg': asideOpen}">
+      <div ng-include="'views/templates/header.html'"></div>
+      <!-- Add your site or application content here -->
+      <div ng-view></div>
+
+    </div>
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        },
+        i[r].l = 1 * new Date();
+        a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+      ga('create', 'UA-23236002-4', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
+    <script src="bower_components/angular-aside/dist/js/angular-aside.js"></script>
+    <script src="bower_components/angular-translate/angular-translate.js"></script>
+    <script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+    <script src="bower_components/angular-translate-storage-local/angular-translate-storage-local.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-dialog-service/dist/dialogs.min.js"></script>
+    <script src="bower_components/angular-dialog-service/dist/dialogs.js"></script>
+    <script src="bower_components/angular-dialog-service/dist/dialogs-default-translations.min.js"></script>
+    <script src="bower_components/angular-dialog-service/dist/dialogs-default-translations.js"></script>
+    <script src="bower_components/ngstorage/ngStorage.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+    <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
+    <script src="bower_components/angular-toggle-switch/angular-toggle-switch.js"></script>
+    <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,public}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/constant.js"></script>
+
+    <!-- Services -->
+    <script src="scripts/services/service.js"></script>
+    <script src="scripts/services/RepositoryService.js"></script>
+    <script src="scripts/services/LangService.js"></script>
+    <script src="scripts/services/MessageService.js"></script>
+    <script src="scripts/services/WordService.js"></script>
+    <script src="scripts/services/CategoryService.js"></script>
+    <script src="scripts/services/DialogsService.js"></script>
+    <script src="scripts/services/LevelService.js"></script>
+    <script src="scripts/services/ScoreService.js"></script>
+    <script src="scripts/services/SettingService.js"></script>
+    <script src="scripts/services/HttpInterceptor.js"></script>
+    <script src="scripts/services/RouteInterceptor.js"></script>
+    <script src="scripts/services/SecurityService.js"></script>
+    <script src="scripts/services/SessionService.js"></script>
+    <script src="scripts/services/UserService.js"></script>
+    <script src="scripts/services/OptionService.js"></script>
+
+    <!-- Routes -->
+    <script src="scripts/routes/game.js"></script>
+    <script src="scripts/routes/admin.js"></script>
+    <script src="scripts/routes/lang.js"></script>
+
+    <!-- Controllers -->
+    <script src="scripts/controllers/GameController.js"></script>
+    <script src="scripts/controllers/AdminController.js"></script>
+    <script src="scripts/controllers/LangController.js"></script>
+    <script src="scripts/controllers/CategoryController.js"></script>
+    <script src="scripts/controllers/LevelController.js"></script>
+    <script src="scripts/controllers/AsideController.js"></script>
+    <script src="scripts/controllers/HeaderController.js"></script>
+    <script src="scripts/controllers/LoginController.js"></script>
+    <script src="scripts/controllers/SettingController.js"></script>
+    <script src="scripts/controllers/UserController.js"></script>
+    <script src="scripts/controllers/WordController.js"></script>
+    <script src="scripts/controllers/ImportController.js"></script>
+
+    <!-- Directives -->
+    <script src="scripts/directives/directives.js"></script>
+    <script src="scripts/directives/unique.js"></script>
+    <script src="scripts/directives/ChangePasswordDirective.js"></script>
+    <script src="scripts/directives/uploadDirective.js"></script>
+    <script src="scripts/directives/focusInput.js"></script>
+
+    <!-- Filters -->
+    <script src="scripts/filters/filters.js"></script>
+
+    <!-- endbuild -->
+  </body>
+</html>

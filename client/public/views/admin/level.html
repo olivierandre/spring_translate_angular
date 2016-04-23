@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+    <form name="levelForm" ng-submit="submitForm()">
+      <div ng-repeat="lang in langFacade.langs | orderBy : '-code'">
+        <div class="form-group">
+          <label for="level_{{ lang.code }}">{{'LEVEL.LABEL' | translate}} {{ lang.label }}</label>
+          <input ng-class="{'valid': levelForm.level_{{lang.code}}.$valid, 'error': !levelForm.level_{{lang.code}}.$valid && levelForm.level_{{lang.code}}.$dirty}" name="level_{{ lang.code }}" type="text" class="form-control" id="level_{{ lang.code }}" ng-model="level.labels[lang.code]"
+          required ng-minLength="minLevel">
+
+          <div class="help-block" ng-messages="levelForm['level_' + lang.code].$error" ng-show="levelForm.level_{{lang.code}}.$dirty">
+            <div ng-message="required">
+              <span class="label label-danger">{{ 'ERROR.REQUIRED' | translate }}</span>
+            </div>
+            <div ng-message="minlength">
+              <span class="label label-danger">{{ 'ERROR.MIN_CHAR' | translate:getTranslate }}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="formButton pull-right">
+        <button ng-disabled="levelForm.$invalid" type="submit" class="btn btn-success" tooltip-class="tooltipClass" tooltip-placement="top" uib-tooltip="{{ 'BUTTON.VALID' | translate }}">
+          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        </button>
+        <button ng-click="resetForm(levelForm)" type="button" class="btn btn-danger" tooltip-class="tooltipClass" tooltip-placement="right" uib-tooltip="{{ 'BUTTON.RESET' | translate }}">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+
+  <div class="col-xs-12">
+    <h4>{{ 'LEVEL.LIST' | translate }}</h4>
+
+    <div>
+      <p ng-if="levelFacade.levels.length === 0">{{ 'LEVEL.NO_LEVEL' | translate }}</p>
+      <table ng-if="levelFacade.levels.length > 0" class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th ng-repeat="lang in langFacade.langs | orderBy : '-code'">{{'WORD.WORD' | translate}} {{ lang.label }}</th>
+            <th>Order</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="label in filteredLevels" class="repeated-animation">
+            <th>{{ getIndex($index) }}</th>
+            <td ng-repeat="(key, value) in label.labels | objectToArray | orderBy : '-key' track by key ">{{ value }}</td>
+            <td>{{ label.order }}</td>
+            <td>
+              <button ng-disabled="disable" type="button" class="btn btn-default btn-xs" ng-click="modify(label)">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+              </button>
+              <button ng-disabled="disable" type="button" class="btn btn-default btn-xs" ng-click="delete(label)">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              </button>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <uib-pagination ng-show="numPerPage < numPages" items-per-page="numPerPage" ng-model="currentPage" direction-links="false" total-items="numPages" class="pagination-sm"></uib-pagination>
+  </div>
+
+</div>
+</div>

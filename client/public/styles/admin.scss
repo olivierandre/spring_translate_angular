@@ -1,0 +1,51 @@
+@import "./main.scss";
+
+.flexTest {
+    width: 100%;
+    flex-direction: row;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    li {
+        width: 30%;
+        margin-bottom: 20px;
+        a {
+            text-align: center;
+            border: 2px solid $brand-primary;
+            background-color: $brand-primary;
+            color: white;
+            height: 200px;
+            transition: box-shadow .3s, background-color .3s, border .3s;
+            display: block;
+            //padding: 0px 50px;
+            margin: auto;
+            p {
+                text-align: left;
+                padding: 0px 10px;
+                font-weight: lighter;
+            }
+            &:hover {
+                text-decoration: none;
+                color: white;
+                box-shadow: 10px 10px 20px rgba($brand-secondary, .8);
+                background-color: $brand-secondary;
+                border: 2px solid $brand-secondary;
+            }
+        }
+    }
+
+}
+
+
+@media screen and (max-width: 768px) {
+    .flexTest {
+        display: block !important;
+        li {
+            width: 100%;
+            a {
+                width: 80%;
+            }
+        }
+    }
+
+}

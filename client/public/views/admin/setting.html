@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="pull-right">
+      <button class="btn btn-success" ng-click="saveSettings()" ng-disabled="!settingFacade.settingChange || inserted" tooltip-class="tooltipClass" tooltip-placement="top" uib-tooltip="{{ 'SETTING.SAVE' | translate }}" type="button">
+        <span aria-hidden="true" class="glyphicon glyphicon-ok"></span>
+      </button>
+      <button class="btn btn-danger" ng-click="reset()" tooltip-class="tooltipClass" tooltip-placement="right" uib-tooltip="{{ 'BUTTON.RESET' | translate }}" type="button">
+        <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-6">
+    <button class="btn btn-info pull-right" ng-click="addDuration()" ng-disabled="inserted" tooltip-class="tooltipClass" tooltip-placement="right" uib-tooltip="Ajouter une durée" type="button">
+      <span aria-hidden="true" class="glyphicon glyphicon-plus"></span>
+    </button>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Durée du jeu</th>
+          <th>Actif</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="duration in settings.gameDuration">
+          <td>{{ duration.id }}</td>
+
+          <td>
+            <span e-form="rowform" e-name="time" e-required e-style="width: 100% !important" editable-number="duration.time" onbeforesave="checkTime($data, duration.id)">
+              {{ duration.time }}
+              secondes
+            </span>
+          </td>
+
+          <td>
+            <span e-form="rowform" e-name="enable" e-required e-style="width: 100% !important" e-title="Rendre actif?" editable-checkbox="duration.enable">
+              <span aria-hidden="true" class="glyphicon" ng-class="{'glyphicon-ok': duration.enable, 'glyphicon-remove':!duration.enable}"></span>
+            </span>
+          </td>
+
+          <td>
+            <form class="form-buttons form-inline" editable-form name="rowform" ng-show="rowform.$visible" onbeforesave="saveDuration(duration)" shown="inserted == duration">
+              <button class="btn btn-primary btn-xs" ng-disabled="rowform.$waiting" type="submit">
+                <span aria-hidden="true" class="glyphicon glyphicon-ok"></span>
+              </button>
+              <button class="btn btn-default btn-xs" ng-click="cancel(rowform, duration)" ng-disabled="rowform.$waiting" type="button">
+                <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+              </button>
+            </form>
+            <div ng-show="!rowform.$visible && $index !== 0">
+              <button class="btn btn-default btn-xs" ng-click="rowform.$show()" tooltip-class="tooltipClass" tooltip-placement="left" uib-tooltip="{{'TOOLTIP.EDIT' | translate}}" type="button">
+                <span aria-hidden="true" class="glyphicon glyphicon-edit"></span>
+              </button>
+              <button class="btn btn-default btn-xs" ng-click="deleteDuration(duration)" tooltip-class="tooltipClass" tooltip-placement="left" uib-tooltip="{{'TOOLTIP.DELETE' | translate}}" type="button">
+                <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+              </button>
+            </div>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-xs-12 col-sm-6">
+    <span class="label label-info">Disponibilité du jeu</span>
+    <toggle-switch class="switch-success switch-mini" ng-change="changeLaunchStatus()" ng-model="settings.launch" off-label="Hors ligne" on-label="En ligne"></toggle-switch>
+  </div>
+
+</div>

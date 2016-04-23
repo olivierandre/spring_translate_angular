@@ -1,0 +1,69 @@
+<div class="row">
+    <!-- <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+        <div>
+            <form name="formLang">
+                <div class="form-group" ng-class="{'has-error': formLang.code.$invalid && formLang.code.$dirty, 'has-success': formLang.code.$valid && formLang.code.$dirty}">
+                    <label class="control-label" for="code">Code langue</label>
+                    <input type="text" ng-model="newLang.code" class="form-control" id="code" name="code" ng-minlength="2" ng-maxlength="3" required>
+                    <span class="help-block" ng-show="formLang.code.$invalid && formLang.code.$dirty">
+                        {{ errorInput(formLang.code) }}<br>
+                    </span>
+                </div>
+                <div class="form-group" ng-class="{'has-error': formLang.country.$invalid && formLang.country.$dirty, 'has-success': formLang.country.$valid && formLang.country.$dirty}">
+                    <label for="country">Nom du pays</label>
+                    <input type="text" class="form-control" id="country" name="country" ng-model="newLang.country" required>
+                    <span class="help-block" ng-show="formLang.country.$invalid && formLang.country.$dirty">
+                        {{ errorInput(formLang.country) }}<br>
+                    </span>
+                </div>
+                <div ng-repeat="lang in langFacade.langs | orderBy : '-code'">
+                  <div class="form-group">
+                    <label for="lang_{{ lang.code }}">{{'WORD.WORD' | translate: getTranslate(lang.labels[getCurrentLang()]) | capitalize }}</label>
+                    <input ng-class="{'valid': formLang.lang_{{lang.code}}.$valid, 'error': !formLang.lang_{{lang.code}}.$valid && formLang.lang_{{lang.code}}.$dirty}" name="lang_{{ lang.code }}" type="text" class="form-control" id="lang_{{ lang.code }}" ng-model="newLang.labels[lang.code]"
+                    required ng-minLength="minimum">
+                    <div class="help-block" ng-messages="formLang['lang_' + lang.code].$error" ng-show="formLang.lang_{{lang.code}}.$dirty">
+                      <div ng-message="required">
+                        <span class="label label-danger">{{ 'ERROR.REQUIRED' | translate }}</span>
+                      </div>
+                      <div ng-message="minlength">
+                        <span class="label label-danger">{{ 'ERROR.MIN_CHAR' | translate:getTranslate }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <button ng-click="valid(formLang)" ng-disabled="formLang.$invalid" type="submit" class="btn btn-default">Submit</button>
+        </div>
+    </div> -->
+
+    <div class="col-xs-12">
+        <h5>Liste des langues</h5>
+        <div>
+            <p ng-if="langs.length === 0">Aucune langue</p>
+            <table ng-if="langs.length > 0" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Code</th>
+                        <th>Pays</th>
+                        <th ng-repeat="lang in langFacade.langs | orderBy : 'code'">{{'WORD.WORD' | translate: getTranslate(lang.labels[getCurrentLang()]) | capitalize}}</th>
+                        <!-- <th>Actions</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="lang in langs">
+                        <th>{{ $index + 1 }}</th>
+                        <td>{{ lang.code }}</td>
+                        <td>{{ lang.country }}</td>
+                        <td ng-repeat="l in langFacade.langs | orderBy : 'code'">{{ lang.labels[l.code] }}</td>
+                        <!-- <td>
+                            <button ng-disabled="langs.length === 2" type="button" class="btn btn-default btn-xs" ng-click="delete(lang)">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            </button>
+                        </td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

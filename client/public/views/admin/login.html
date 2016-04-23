@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+    <!-- <uib-alert type="{{ alert.type }}" ng-show="securityFacade.getShowErrorAuthenticate()" dismiss-on-timeout="{{ alert.time }}" close="closeAlert()">
+      {{ alert.msg }}
+  </uib-alert> -->
+    <form role="form" name="loginForm" ng-submit="login()">
+      <div class="form-group">
+        <label for="username">{{ 'USER.USERNAME' | translate }}</label>
+        <input type="text" class="form-control" id="username" name="username" ng-model="credentials.username" required ng-class="{'valid': loginForm.username.$valid }" />
+      </div>
+      <div class="form-group">
+        <label for="password">{{ 'USER.PASSWORD' | translate }}</label>
+        <input type="password" class="form-control" id="password" name="password" ng-model="credentials.password" required ng-class="{'valid': loginForm.password.$valid }" />
+      </div>
+      <div>
+        <button type="submit" class="btn btn-success" tooltip-class="tooltipClass" tooltip-placement="top" uib-tooltip="{{ 'BUTTON.VALID' | translate }}" ng-disabled="loginForm.$invalid || loginForm.$pristine">
+          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        </button>
+        <button ng-disabled="!credentials.username && !credentials.password" type="button" ng-click="resetForm(loginForm)" class="btn btn-danger" tooltip-class="tooltipClass" tooltip-placement="top" uib-tooltip="{{ 'BUTTON.RESET' | translate }}">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </button>
+
+        <span class="label label-info">Durée de connexion : 6 heures</span>
+      </div>
+    </form>
+  </div>
+</div>

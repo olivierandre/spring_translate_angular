@@ -1,0 +1,26 @@
+<div class="asideModal">
+  <div class="modal-header">
+    <h3 class="modal-title">Menu
+      <small ng-if="securityFacade.authenticated"> | {{'GENERAL.HELLO' | translate }} {{ user.firstName }}</small>
+    </h3>
+    <a ng-if="securityFacade.authenticated" class="btn btn-primary" role="button" ng-click="open($event)" ng-href="#/logout">{{'BUTTON.LOGOUT' | translate }}</a>
+    <a class="btn btn-danger" role="button" ng-click="cancel($event)">{{'BUTTON.CLOSE' | translate }}</a>
+    <a class="btn btn-default" data-ng-click="openHighScores()" role="button">{{ 'GAME.SCORES' | translate }}</a>
+  </div>
+  <div ng-if="securityFacade.authenticated && !user.firstConnect" class="modal-body">
+    <a class="btn btn-primary" role="button" ng-click="open($event)" ng-href="#/admin">{{'BUTTON.HOME_ADMIN' | translate}}</a>
+    <a class="btn btn-primary" role="button" ng-click="open($event)" ng-href="#/admin/lang">{{'BUTTON.MANAGE_LANG' | translate }}</a>
+    <a class="btn btn-primary" role="button" ng-click="open($event)" ng-href="#/admin/word">{{'BUTTON.MANAGE_WORD' | translate }}</a>
+    <a class="btn btn-primary" role="button" ng-click="open($event)" ng-href="#/admin/category">{{'BUTTON.MANAGE_CATEGORY' | translate }}</a>
+    <a class="btn btn-primary" role="button" ng-click="open($event)" ng-href="#/admin/level">{{'BUTTON.MANAGE_LEVEL' | translate }}</a>
+    <a class="btn btn-primary" role="button" ng-click="open($event)" ng-href="#/admin/setting">{{ 'SETTING.TITLE' | translate }}</a>
+  </div>
+  <div class="modal-body text-center">
+    <button class="btn btn-default" role="button" ng-click="setLanguage('fr')" ng-class="{'btn-info': getCurrentLang() === 'fr'}">France</button>
+    <button class="btn btn-default" role="button" ng-click="setLanguage('en')" ng-class="{'btn-info': getCurrentLang() === 'en'}">English</button>
+  </div>
+  <div class="modal-footer">
+    <a class="btn btn-default" role="button" ng-click="open($event)" ng-href="#/">
+      <span class="glyphicon glyphicon-home" aria-hidden="true"></span> {{'BUTTON.HOME_INDEX' | translate }}</a>
+  </div>
+</div>

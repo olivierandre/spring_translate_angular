@@ -1,0 +1,16 @@
+.apt_generated
+.settings
+.DS_Store
+target
+src/main/resources/application.yml
+
+/client/node_modules/*
+/client/dist
+/client/.tmp
+/client/.sass-cache
+/client/.editorconfig
+/client/bower_components
+/client/configuration_prod.txt
+/client/npm-debug.log
+
+client/.DS_Store

@@ -1,0 +1,9 @@
+node_modules
+dist
+.tmp
+.sass-cache
+.editorconfig
+bower_components
+configuration_prod.txt
+npm-debug.log
+.DS_Store

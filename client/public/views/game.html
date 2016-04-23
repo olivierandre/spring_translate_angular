@@ -1,0 +1,104 @@
+<div class="row">
+  <div class="text-center" ng-show="!start">
+    <button class="btn btn-translate btn-lg opacity balance" role="button" ng-click="startGame()">Débuter le jeu</button>
+  </div>
+
+  <div class="col-xs-12 formGame" ng-if="words.length === 0 && start">
+    <form name="formPrepareGame">
+      <div class="form-group col-xs-12 col-sm-6">
+        <label ng-class="{'showLabel': formPrepareGame.player.$viewValue.length > 0 }" class="hideLabel" for="player">{{'GAME.FIRSTNAME' | translate }}</label>
+        <input type="text" focus="true" class="form-control fullSize" id="player" name="player" placeholder="{{'GAME.FIRSTNAME' | translate }}" ng-model="game.player" required ng-minLength="minimum">
+        <span class="help-block" ng-messages="formPrepareGame.player.$error" role="alert">
+          <div ng-message="required">
+            <span class="label label-danger">{{ 'ERROR.REQUIRED' | translate }}</span>
+          </div>
+          <div ng-message="minlength">
+            <span class="label label-danger">{{ 'ERROR.MIN_CHAR' | translate:getTranslate }}</span>
+          </div>
+        </span>
+
+      </div>
+      <div class="col-xs-12 col-sm-6" ng-show="game.player.length > 0">
+        <p>{{ 'GAME.HELLO' | translate:getTranslate }}</p>
+        <div class="btn-group" ng-repeat="label in categoryFacade.categories">
+          <label style="margin-right: 5px" class="btn btn-primary btn-xs" ng-model="game.category" uib-btn-radio="label.id">{{ label.labels | i18n }}</label>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-6" ng-show="game.category">
+        <p>Durée de la partie</p>
+        <div class="btn-group clearfix" ng-repeat="duration in gameDuration | orderBy: 'time'">
+          <label style="margin-right: 5px" class="btn btn-primary btn-xs" ng-model="game.timeMax" uib-btn-radio="duration.time">{{ duration.time }}</label>
+        </div>
+      </div>
+      <div class="text-center">
+        <button ng-if="canPlay()" style="margin-top: 10px" ng-show="!formPrepareGame.$invalid && game.category" ng-click="getWords()" type="submit" class="btn btn-translate btn-lg btn-lg-full">{{'BUTTON.LET_GO' | translate }}</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-xs-12 formGame" ng-if="words.length > 0">
+    <form name="formGame" novalidate>
+      <!-- <div class="col-xs-12 col-sm-6 col-sm-offset-3" style="height: 65px">
+        <uib-alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</uib-alert>
+      </div> -->
+      <div class="form-group col-xs-12 col-sm-6 col-sm-offset-3">
+        <label for="wordToFind">{{'GAME.FIND_WORD' | translate }}
+          <span class="label label-primary">{{ lang.answer | langLabel }}</span>
+        </label>
+        <input type="text" class="form-control fullSize" id="wordToFind" placeholder="Mot à trouver" ng-model="answer.playerAnswer" required>
+      </div>
+
+      <div class="form-group col-xs-12 col-sm-6 col-sm-offset-3">
+        <label for="wordToTranslate">{{'GAME.TRANSLATE_WORD' | translate }}
+          <span class="label label-primary">{{ lang.translate | langLabel }}</span>
+        </label>
+        <input type="text" class="form-control fullSize" id="wordToTranslate" ng-model="translateFind" disabled>
+      </div>
+      <div class="form-group col-xs-12 col-sm-6 col-sm-offset-3">
+        <p>{{'GAME.SCORE' | translate }}
+          <span class="badge">{{ score.point }}</span>
+        </p>
+        <p>{{'GAME.QUESTIONS' | translate }}
+          <span class="badge">{{ score.questions }}</span>
+        </p>
+        <p>{{'GAME.RATIO' | translate }}
+          <span class="badge">{{ getPourcent(score.questions, score.goodAnswer) | number: 2}}
+            %</span>
+        </p>
+        <div class="col-xs-12">
+          <uib-progressbar class="progress-striped active" ng-class="{'active': seconds < 60 }" max="game.timeMax" value="seconds" type="{{type}}">
+            <i>
+              {{ seconds }}
+              /
+              {{ game.timeMax }}</i>
+          </uib-progressbar>
+        </div>
+
+        <button ng-show="!formGame.$invalid" ng-click="verify()" type="submit" class="btn btn-success pull-right">{{'BUTTON.VALID' | translate }}</button>
+        <button style="margin-right: 20px" ng-click="otherQuestion()" type="submit" class="btn btn-info pull-left">{{'BUTTON.NEXT_QUESTION' | translate }}</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-xs-12" ng-show="showSummary">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Mot à trouver</th>
+          <th>Ta réponse</th>
+          <th>La réponse</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="{{ sum.type }}" ng-repeat="sum in summary">
+          <th>{{ $index + 1 }}</th>
+          <td>{{ sum.toTranslate }}</td>
+          <td ng-class="{'falseAnswer': sum.type === 'danger' }">{{ sum.playerAnswer }}</td>
+          <td>{{ sum.answer }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

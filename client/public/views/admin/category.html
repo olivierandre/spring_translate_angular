@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+    <form name="categoryForm" ng-submit="submitForm()">
+      <div ng-repeat="lang in langFacade.langs | orderBy : '-code'">
+        <div class="form-group">
+          <label for="category_{{ lang.code }}">{{'CATEGORY.LABEL' | translate}}
+            {{ lang.labels[getCurrentLang()] | lowercase  }}</label>
+          <input class="form-control" id="category_{{ lang.code }}" name="category_{{ lang.code }}" ng-class="{'valid': categoryForm.category_{{lang.code}}.$valid, 'error': !categoryForm.category_{{lang.code}}.$valid && categoryForm.category_{{lang.code}}.$dirty}" ng-minlength="minCategory" ng-model="category.labels[lang.code]" required type="text">
+
+          <div class="help-block" ng-messages="categoryForm['category_' + lang.code].$error" ng-show="categoryForm.category_{{lang.code}}.$dirty">
+            <div ng-message="required">
+              <span class="label label-danger">{{ 'ERROR.REQUIRED' | translate }}</span>
+            </div>
+            <div ng-message="minlength">
+              <span class="label label-danger">{{ 'ERROR.MIN_CHAR' | translate:getTranslate }}</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="formButton pull-right">
+        <button class="btn btn-success" ng-class="tooltipClass" ng-disabled="categoryForm.$invalid" tooltip-placement="top" type="submit" uib-tooltip="{{ 'BUTTON.VALID' | translate }}">
+          <span aria-hidden="true" class="glyphicon glyphicon-ok"></span>
+        </button>
+        <button class="btn btn-danger" ng-click="resetForm(categoryForm)" tooltip-class="tooltipClass" tooltip-placement="right" type="button" uib-tooltip="{{ 'BUTTON.RESET' | translate }}">
+          <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-xs-12">
+    <h4>{{ 'CATEGORY.LIST' | translate }}</h4>
+
+    <div>
+      <p ng-if="categoryFacade.categories.length === 0">{{ 'CATEGORY.NO_CATEGORY' | translate }}</p>
+      <table class="table table-striped" ng-if="categoryFacade.categories.length > 0">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th ng-repeat="lang in langFacade.langs | orderBy : 'code'">{{'WORD.WORD' | translate}}
+              {{ lang.labels[getCurrentLang()] | lowercase  }}</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="repeated-animation" ng-repeat="label in filteredCategories">
+            <th>{{ getIndex($index) }}</th>
+            <td ng-repeat="(key, value) in label.labels | orderBy : 'key' track by key ">{{ value }}</td>
+            <td>
+              <button class="btn btn-default btn-xs" ng-click="modify(label)" ng-disabled="disable" tooltip-class="tooltipClass" tooltip-placement="left" type="button" uib-tooltip="{{ 'TOOLTIP.EDIT' | translate }}">
+                <span aria-hidden="true" class="glyphicon glyphicon-edit"></span>
+              </button>
+              <button class="btn btn-default btn-xs" ng-click="delete(label)" ng-disabled="categories.length === 1" tooltip-class="tooltipClass" tooltip-placement="right" type="button" uib-tooltip="{{ 'TOOLTIP.DELETE' | translate }}">
+                <span aria-hidden="true" class="glyphicon glyphicon-trash"></span>
+              </button>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <uib-pagination class="pagination-sm" direction-links="false" items-per-page="numPerPage" ng-model="currentPage" ng-show="numPerPage < numPages" total-items="numPages"></uib-pagination>
+  </div>
+
+</div>

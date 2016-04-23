@@ -1,0 +1,83 @@
+<div class="row" ng-cloak>
+  <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+    <form name="wordForm" ng-submit="submitForm()">
+      <div ng-repeat="lang in langFacade.langs | orderBy : '-code'">
+        <div class="form-group">
+          <label for="word_{{ lang.code }}">{{'WORD.WORD' | translate: getTranslate(lang.labels[getCurrentLang()]) | capitalize }}</label>
+          <input ng-class="{'valid': wordForm.word_{{lang.code}}.$valid, 'error': !wordForm.word_{{lang.code}}.$valid && wordForm.word_{{lang.code}}.$dirty}" name="word_{{ lang.code }}" type="text" class="form-control" id="word_{{ lang.code }}" ng-model="word.labels[lang.code]"
+          required ng-minlength="minimum">
+          <div class="help-block" ng-messages="wordForm['word_' + lang.code].$error" ng-show="wordForm.word_{{lang.code}}.$dirty">
+            <div ng-message="required">
+              <span class="label label-danger">{{ 'ERROR.REQUIRED' | translate }}</span>
+            </div>
+            <div ng-message="minlength">
+              <span class="label label-danger">{{ 'ERROR.MIN_CHAR' | translate:getTranslate }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <label>{{ 'CATEGORY.CATEGORY' | translate }}</label>
+      <br />
+      <div class="btn-group">
+        <span ng-repeat="label in categoryFacade.categories">
+          <label class="btn btn-primary btn-xs" ng-model="word.category" uib-btn-radio="'{{ label.id }}'">{{ label.labels | i18n }}</label>
+        </span>
+      </div>
+      <div class="formButton pull-right">
+        <button ng-disabled="wordForm.$invalid || !word.category" type="submit" class="btn btn-success" tooltip-class="tooltipClass" tooltip-placement="top" uib-tooltip="{{ 'BUTTON.VALID' | translate }}">
+          <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        </button>
+        <button ng-click="resetForm(wordForm)" type="button" class="btn btn-danger" tooltip-class="tooltipClass" tooltip-placement="right"  uib-tooltip="{{ 'BUTTON.RESET' | translate }}">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </button>
+      </div>
+    </form>
+  </div>
+
+
+  <div class="col-xs-12">
+    <h4>Liste des langues
+      <span ng-if="wordFacade.words.length > 0"> ({{ wordFacade.words.length }})</span>
+    </h4>
+    <div class="col-xs-2 pull-right">
+        <div class="form-group">
+            <label>Affichage par</label>
+        <select ng-init="numPerPage = numPerPage || options[0].value" ng-model="numPerPage" ng-options="option.value as option.value for option in options" class="form-control">
+        </select>
+    </div>
+    </div>
+
+    <div ng-if="wordFacade.words.length > 0">
+      <p ng-if="wordFacade.words.length === 0">Aucun mot</p>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th ng-repeat="lang in langFacade.langs | orderBy : 'code'">{{'WORD.WORD' | translate: getTranslate(lang.labels[getCurrentLang()]) | capitalize}}</th>
+            <th>Category</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="label in filteredWords" class="repeated-animation">
+            <th>{{ getIndex($index) }}</th>
+            <td ng-repeat="(key, value) in label.labels | orderBy : 'key' track by key">{{ value }}</td>
+            <td>{{ categoryFacade.getCategoryName(label.category) | i18n }}</td>
+            <td>
+              <button tooltip-placement="left" tooltip-class="tooltipClass" uib-tooltip="{{ 'TOOLTIP.EDIT' | translate }}" ng-disabled="disable" type="button" class="btn btn-default btn-xs" ng-click="modify(label)">
+                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+              </button>
+              <button tooltip-placement="right" tooltip-class="tooltipClass" uib-tooltip="{{ 'TOOLTIP.DELETE' | translate }}" ng-disabled="disable" type="button" class="btn btn-default btn-xs" ng-click="delete(label)">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              </button>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    <uib-pagination ng-if="enablePagination" items-per-page="numPerPage" ng-model="model.currentPage" direction-links="false" total-items="numPages" class="pagination-sm"></uib-pagination>
+  </div>
+
+</div>

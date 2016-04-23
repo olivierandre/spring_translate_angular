@@ -1,0 +1,18 @@
+[
+	{
+		"code" : "fr",
+		"country" : "France",
+        "labels": {
+            "fr": "Français",
+            "en": "French"
+        }
+    }, {
+    	"code": "en",
+    	"country": "England",
+        "labels": {
+            "fr": "Anglais",
+            "en": "English"
+        }
+    }
+
+]

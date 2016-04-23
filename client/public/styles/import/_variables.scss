@@ -1,0 +1,36 @@
+//  Overide variables
+$border-radius-base: 0px;
+$border-radius-large: 0px;
+$border-radius-small: 0px;
+
+$brand-primary: #81CFE0;
+$badge-bg: $brand-primary;
+
+//  Table
+$table-border-color: $brand-primary;
+$table-bg-accent: rgba($brand-primary, .1);
+
+//  Text header
+$page-header-border-color: rgba($brand-primary, .5);
+
+//  Header
+$modal-header-border-color: $page-header-border-color;
+$modal-footer-border-color: $modal-header-border-color;
+
+//  Pagination
+$pagination-border: $brand-primary;
+
+$brand-secondary: #2980B9;
+
+//  Base colors
+$brand-danger: #EF4836;
+$brand-success: #00B16A;
+
+//  Forms
+$input-bg-disabled: rgba($brand-primary, .3);
+
+//  Navbar
+$navbar-default-bg: rgba(255, 255, 255, 0.8);
+$navbar-default-border: $brand-primary;
+$navbar-default-color: rgba(0, 0, 0, 1);
+$navbar-default-link-color: $navbar-default-color;

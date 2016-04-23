@@ -1,0 +1,72 @@
+<div class="row">
+  <accordion close-others="true">
+
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <accordion-group heading="Vos données">
+        <form id="userForm" name="userForm" ng-submit="submitForm(userForm)">
+          <div class="form-group">
+            <label for="username" ng-class="{'showLabel': user.username.length > 0}">{{ 'USER.USERNAME' | translate }}</label>
+            <input class="form-control" id="username" name="username" ng-class="{'valid': userForm.username.$valid, 'error': !userForm.username.$valid}" ng-model="user.username" placeholder="{{ 'USER.USERNAME' | translate }}" required type="text">
+          </div>
+
+          <div class="form-group">
+            <label for="firstname" ng-class="{'showLabel': user.firstName.length > 0}">{{ 'USER.FIRSTNAME' | translate }}</label>
+            <input class="form-control" id="firstname" name="firstname" ng-class="{'valid': userForm.firstname.$valid, 'error': !userForm.firstname.$valid}" ng-model="user.firstName" placeholder="{{ 'USER.ID' | translate }}" required type="text">
+          </div>
+
+          <div class="form-group">
+            <label for="lastname" ng-class="{'showLabel': user.lastName.length > 0}">{{ 'USER.LASTNAME' | translate }}</label>
+            <input class="form-control" id="lastname" name="lastname" ng-class="{'valid': userForm.lastname.$valid, 'error': !userForm.lastname.$valid}" ng-model="user.lastName" placeholder="{{ 'USER.LASTNAME' | translate }}" required type="text">
+          </div>
+
+          <div class="form-group">
+            <label for="email" ng-class="{'showLabel': focus.email || user.email.length > 0}">{{ 'USER.EMAIL' | translate }}</label>
+            <input class="form-control" id="email" name="email" ng-blur="focusInput('email', false)" ng-class="{'valid': userForm.email.$valid, 'error': !userForm.email.$valid}" ng-focus="focusInput('email', true)" ng-model="user.email" ng-pattern="EMAIL_REGEXP" placeholder="{{ !focus.email ? translateEmail()  : '' }}" required type="text">
+          </div>
+
+          <div class="pull-right" ng-show="showButton(userForm)">
+            <button class="btn btn-success" ng-disabled="userForm.$invalid || userForm.$pristine" tooltip-class="tooltipClass" tooltip-placement="top" tooltip="{{ 'BUTTON.VALID' | translate }}" type="submit">
+              <span aria-hidden="true" class="glyphicon glyphicon-ok"></span>
+            </button>
+            <button class="btn btn-danger" ng-click="resetForm(userForm)" tooltip-class="tooltipClass" tooltip-placement="right" tooltip="{{ 'BUTTON.RESET' | translate }}" tooltip="{{ 'BUTTON.RESET' | translate }}" type="button">
+              <span aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+            </button>
+
+          </div>
+
+        </form>
+      </accordion-group>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3" style="margin-top: 20px">
+
+      <accordion-group heading="Changer votre mot de passe" is-open="accordion.password">
+        <change-password finish="'close-accordion'"></change-password>
+      </accordion-group>
+
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3" style="margin-top: 20px">
+
+      <accordion-group heading="Créer un compte utilisater" is-open="accordion.newAccount">
+        <form id="newUserForm" name="newUserForm" ng-submit="submitForm(newUserForm)">
+          <div class="form-group">
+            <label for="newUsername" ng-class="{'showLabel': user.username.length > 0}">{{ 'USER.USERNAME' | translate }}</label>
+            <input class="form-control" id="newUsername" name="newUsername" ng-class="{'valid': newUserForm.newUsername.$valid, 'error': !newUserForm.newUsername.$valid}" ng-model="user.newUsername" placeholder="{{ 'USER.USERNAME' | translate }}" required type="text">
+          </div>
+          <div class="form-group">
+            <label for="newLastname" ng-class="{'showLabel': user.newLastname.length > 0}">{{ 'USER.LASTNAME' | translate }}</label>
+            <input class="form-control" id="newLastname" name="newLastname" ng-class="{'valid': newUserForm.newLastname.$valid, 'error': !newUserForm.newLastname.$valid}" ng-model="user.newLastname" placeholder="{{ 'USER.LASTNAME' | translate }}" required type="text">
+          </div>
+
+          <div class="form-group">
+            <label for="newEmail" ng-class="{'showLabel': focus.newEmail || user.newEmail.length > 0}">{{ 'USER.newEmail' | translate }}</label>
+            <input class="form-control" id="newEmail" name="newEmail" ng-blur="focusInput('newEmail', false)" ng-class="{'valid': newUserForm.newEmail.$valid, 'error': !newUserForm.newEmail.$valid}" ng-focus="focusInput('newEmail', true)" ng-model="user.newEmail" ng-pattern="EMAIL_REGEXP" placeholder="{{ !focus.newEmail ? translateEmail()  : '' }}" required type="text">
+          </div>
+        </form>
+      </accordion-group>
+
+    </div>
+  </accordion>
+
+</div>

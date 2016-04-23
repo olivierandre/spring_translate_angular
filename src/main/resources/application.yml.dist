@@ -1,0 +1,28 @@
+// True or False
+init:
+    category:
+    word:
+    score:
+    setting:
+    user:
+
+//
+mongo:
+    host:
+    port:
+    dbName:
+    user:
+    password:
+    reset:
+
+// fr/en/it/de...    
+locale:
+    primary:
+    secondary:
+
+mail:
+    username:
+    password:
+    apiKey:
+    from:
+    fromName :
